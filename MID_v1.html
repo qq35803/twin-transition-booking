@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>雙軸轉型諮詢預約｜期中_v1</title>
+<style>
+:root{--text:#1F2933;--muted:#4B5563;--bg:#F5F7F8;--card:#FFFFFF;--pri:#0B5F73;--pri-d:#084A5A;--line:#C9D1D9;--err:#B42318;--err-bg:#FEF3F2;--ok:#1A6B3C;--ok-bg:#ECFDF3;--warn-bg:#FFF7E6;--small:1rem}
+*{box-sizing:border-box}
+html{font-size:100%}
+body{margin:0;font-family:system-ui,-apple-system,"Noto Sans CJK TC","PingFang TC","Microsoft JhengHei",sans-serif;font-size:1rem;line-height:1.6;color:var(--text);background:var(--bg)}
+header{background:var(--pri);color:#fff;padding:12px 16px}
+header h1{margin:0;font-size:1.25rem}
+header p{margin:0;font-size:.95rem}
+nav{position:sticky;top:0;z-index:5;background:#fff;border-bottom:1px solid var(--line);display:flex}
+nav a{flex:1;text-align:center;padding:12px 4px;min-height:48px;color:var(--pri-d);font-weight:700;text-decoration:none;font-size:1rem}
+nav a:focus-visible,a:focus-visible,button:focus-visible,select:focus-visible,input:focus-visible,summary:focus-visible,[tabindex]:focus-visible{outline:3px solid #B45309;outline-offset:2px}
+main{max-width:520px;margin:0 auto;padding:16px}
+section{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:16px;margin-bottom:16px;scroll-margin-top:60px}
+h2{font-size:1.125rem;margin:0 0 8px}
+h3{font-size:1rem;margin:16px 0 8px}
+fieldset{border:0;padding:0;margin:0}
+legend{font-weight:700;margin-bottom:8px;padding:0}
+.topics{display:grid;gap:8px}
+.topic{display:flex;align-items:center;gap:12px;border:2px solid var(--line);border-radius:8px;padding:8px 12px;min-height:56px;cursor:pointer}
+.topic input{width:24px;height:24px;margin:0;flex:none}
+.topic:has(input:checked){border-color:var(--pri);background:#E8F4F7}
+.topic small{display:block;color:var(--muted);font-size:var(--small)}
+label.f{display:block;font-weight:700;margin:12px 0 4px}
+select,input[type=number],input[type=text]{width:100%;font-size:1rem;padding:10px 12px;border:1px solid #6B7280;border-radius:6px;min-height:48px;background:#fff;color:var(--text)}
+.hint{color:var(--muted);font-size:var(--small);margin:4px 0 0}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:8px;margin-top:8px}
+.slot{font-size:1rem;min-height:56px;border:2px solid var(--pri);background:#fff;color:var(--pri-d);border-radius:8px;padding:4px 8px;cursor:pointer;line-height:1.3}
+.slot[aria-pressed=true]{background:var(--pri);color:#fff}
+.slot:disabled{border-color:#9AA4AE;color:#4B5563;background:#EEF1F4;cursor:not-allowed;text-decoration:line-through}
+.box{border-radius:8px;padding:12px;margin-top:8px}
+.box.err{background:var(--err-bg);color:var(--err);border:1px solid #F4B8B2}
+.box.info{background:var(--warn-bg);color:#5C3B00;border:1px solid #F0C36D}
+.box.ok{background:var(--ok-bg);color:var(--ok);border:1px solid #9BD3B0}
+.fielderr{color:var(--err);font-weight:700;font-size:var(--small);margin:4px 0 0}
+.btn{display:block;width:100%;font-size:1rem;font-weight:700;min-height:52px;border-radius:8px;border:0;background:var(--pri);color:#fff;margin-top:16px;cursor:pointer;padding:8px 12px}
+.btn:disabled{background:#5F7F88;cursor:progress}
+.btn2{display:block;width:100%;font-size:1rem;font-weight:700;min-height:48px;border-radius:8px;border:2px solid var(--pri);background:#fff;color:var(--pri-d);margin-top:8px;cursor:pointer;padding:8px 12px}
+.loading{display:flex;align-items:center;gap:8px;color:var(--text)}
+.spin{width:20px;height:20px;border:3px solid #B8C4CC;border-top-color:var(--pri);border-radius:50%;animation:sp 1s linear infinite}
+@keyframes sp{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.spin{animation:none}}
+dl{display:grid;grid-template-columns:7em 1fr;gap:4px 8px;margin:8px 0}
+dt{font-weight:700}dd{margin:0;overflow-wrap:anywhere}
+details{margin-top:12px;border:1px dashed #6B7280;border-radius:8px;padding:8px 12px}
+summary{cursor:pointer;font-weight:700;min-height:44px;display:flex;align-items:center}
+.ctl{display:flex;align-items:center;gap:8px;min-height:48px}
+.ctl input{width:24px;height:24px;flex:none}
+pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:.8rem;background:#F1F3F5;padding:8px;border-radius:6px;max-height:240px;overflow:auto;color:#1F2933}
+ul{padding-left:20px;margin:4px 0}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.list-old{margin:0;padding-left:20px}
+</style>
+</head>
+<body>
+<header>
+  <h1>雙軸轉型諮詢預約</h1>
+  <p>中臺灣雙軸轉型輔導服務站（虛構示範）｜期中_v1</p>
+</header>
+<nav id="nav" hidden>
+  <a href="#book">預約諮詢</a><a href="#summary">我的預約</a><a href="#about">使用說明</a>
+</nav>
+<main>
+<section id="book" aria-labelledby="bookH">
+  <h2 id="bookH">預約諮詢</h2>
+  <form id="form" novalidate>
+    <fieldset id="topicSet">
+      <legend>1. 諮詢主題（必選）</legend>
+      <div class="topics">
+        <label class="topic"><input type="radio" name="topic" value="digital"><span>數位轉型<small>POS、線上訂位、AI 工具導入</small></span></label>
+        <label class="topic"><input type="radio" name="topic" value="net"><span>淨零減碳<small>碳盤查入門、用電節能</small></span></label>
+        <label class="topic"><input type="radio" name="topic" value="dual"><span>雙軸整合<small>數位工具＋減碳一起規劃</small></span></label>
+      </div>
+      <p id="eTopic" class="fielderr" hidden></p>
+    </fieldset>
+    <label class="f" for="date">2. 日期（必選）</label>
+    <select id="date">
+      <option value="">請選擇日期</option>
+      <option value="2026-11-10">11/10（二）</option>
+      <option value="2026-11-11">11/11（三）</option>
+      <option value="2026-11-12">11/12（四）</option>
+      <option value="2026-11-13">11/13（五）</option>
+    </select>
+    <p id="eDate" class="fielderr" hidden></p>
+    <div id="slotArea" aria-live="polite">
+      <p class="hint" id="slotHint">先選主題與日期，再選時段。</p>
+    </div>
+    <p id="eSlot" class="fielderr" hidden></p>
+    <h3>3. 企業資料</h3>
+    <label class="f" for="industry">產業別（必選）</label>
+    <select id="industry">
+      <option value="">請選擇產業別</option><option>餐飲業</option><option>旅宿業</option><option>旅行業</option><option>其他服務業</option>
+    </select>
+    <p id="eIndustry" class="fielderr" hidden></p>
+    <label class="f" for="emp">員工人數（必填，1～30 人）</label>
+    <input id="emp" type="number" inputmode="numeric" min="1" max="30" step="1" aria-describedby="empHint">
+    <p class="hint" id="empHint">本服務限 30 人以下服務業；超過請改洽一般輔導窗口。</p>
+    <p id="eEmp" class="fielderr" hidden></p>
+    <label class="f" for="nick">聯絡稱呼（必填，2～10 字，勿填電話）</label>
+    <input id="nick" type="text" maxlength="20" placeholder="例：王先生" aria-describedby="nickHint">
+    <p class="hint" id="nickHint">只用於顧問稱呼，本示範不收電話與統編。</p>
+    <p id="eNick" class="fielderr" hidden></p>
+    <button class="btn" id="submit" type="submit">建立模擬預約</button>
+    <div id="submitArea" aria-live="polite"></div>
+  </form>
+</section>
+
+<section id="summary" aria-labelledby="sumH">
+  <h2 id="sumH" tabindex="-1">我的預約</h2>
+  <div id="sumBody"></div>
+</section>
+
+<section id="about" aria-labelledby="aboutH">
+  <h2 id="aboutH">使用說明與限制</h2>
+  <ul>
+    <li>這是課程作品，所有站點、顧問與時段皆為虛構；<b>沒有真正送出預約</b>。</li>
+    <li id="aboutApi">資料只存在本分頁記憶體：重新整理會清空，另一分頁或裝置看不到。</li>
+    <li>11/12 為示範用「無可預約時段」日期。</li>
+  </ul>
+  <details id="ctlBox">
+    <summary>教學控制（重現例外狀況用）</summary>
+    <div id="ctls"></div>
+    <div id="logWrap" hidden><h3>資料往返紀錄（模擬 API，未發出 HTTP）</h3><pre id="log">尚無紀錄</pre></div>
+  </details>
+</section>
+</main>
+<script>
+const F = {"fullBlock": true, "cancel": true, "multi": false, "regions": true, "states": true, "backFix": true, "api": true, "readErrorDistinct": true, "conflict": true, "nextDate": true, "conflictRefresh": false, "focusSummary": false};
+const $ = id => document.getElementById(id);
+const TOPIC = {digital:'數位轉型', net:'淨零減碳', dual:'雙軸整合'};
+const PREP = {
+  digital:['目前使用的收銀／訂位系統名稱','想改善的一個作業流程（例：叫貨、排班）'],
+  net:['近 12 個月電費單（或用電度數）','若有使用瓦斯，近 12 個月瓦斯帳單'],
+  dual:['近 12 個月電費單（或用電度數）','目前使用的收銀／訂位系統名稱']
+};
+const DATE_LABEL = {'2026-11-10':'11/10（二）','2026-11-11':'11/11（三）','2026-11-12':'11/12（四）','2026-11-13':'11/13（五）'};
+// 虛構時段資料（模擬伺服器端）
+const DB = {slots:[
+  {slotId:'A1',date:'2026-11-10',time:'10:00–10:50',topics:['digital','dual'],consultant:'顧問 A（數位）',remaining:1},
+  {slotId:'A2',date:'2026-11-10',time:'14:00–14:50',topics:['net','dual'],consultant:'顧問 B（淨零）',remaining:1},
+  {slotId:'A3',date:'2026-11-10',time:'16:00–16:50',topics:['digital','net','dual'],consultant:'顧問 C（雙軸）',remaining:1},
+  {slotId:'B1',date:'2026-11-11',time:'10:00–10:50',topics:['digital','net','dual'],consultant:'顧問 C（雙軸）',remaining:0},
+  {slotId:'B2',date:'2026-11-11',time:'15:00–15:50',topics:['digital','dual'],consultant:'顧問 A（數位）',remaining:1},
+  {slotId:'D1',date:'2026-11-13',time:'09:30–10:20',topics:['net','dual'],consultant:'顧問 B（淨零）',remaining:1},
+  {slotId:'D2',date:'2026-11-13',time:'13:30–14:20',topics:['digital','net','dual'],consultant:'顧問 C（雙軸）',remaining:1}
+], bookings:[], seq:0};
+
+const state = {slots:[], slotId:null, loading:false, submitting:false, booking:null, list:[], ctl:{readFail:false, submitFail:false, conflict:false}};
+window.__created = 0; // 測試用：實際建立筆數
+
+/* ---------- 模擬 API 層（W7 起）：沒有 HTTP，只在記憶體中處理 JSON ---------- */
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+function log(dir, obj){ if(!F.api) return; const p=$('log'); const s=(new Date()).toLocaleTimeString('zh-TW',{hour12:false})+' '+dir+'\n'+JSON.stringify(obj,null,1); p.textContent = (p.textContent==='尚無紀錄'?'':p.textContent+'\n\n')+s; p.scrollTop=p.scrollHeight; }
+function querySlots(date, topic){
+  return DB.slots.filter(s=>s.date===date && s.topics.includes(topic)).map(s=>({slotId:s.slotId,time:s.time,consultant:s.consultant,remaining:s.remaining}));
+}
+async function apiGetSlots(date, topic){
+  log('→ 請求（模擬）', {method:'GET', path:`/api/slots?date=${date}&topic=${topic}`});
+  await sleep(F.api?700:0);
+  if(state.ctl.readFail){ state.ctl.readFail=false; syncCtl(); const r={status:503, error:{code:'READ_FAILED', message:'時段服務暫時無法讀取'}}; log('← 回應（模擬）', r); throw r; }
+  const r={status:200, date, topic, slots:querySlots(date, topic)}; log('← 回應（模擬）', r); return r;
+}
+async function apiPostBooking(body){
+  log('→ 請求（模擬）', {method:'POST', path:'/api/bookings', body});
+  await sleep(F.api?900:(F.states?650:0));
+  if(state.ctl.submitFail){ state.ctl.submitFail=false; syncCtl(); const r={status:503, error:{code:'NOT_CREATED', message:'服務暫時無法處理，本次未建立預約'}}; log('← 回應（模擬）', r); return r; }
+  const s = DB.slots.find(x=>x.slotId===body.slotId);
+  if(state.ctl.conflict && s){ state.ctl.conflict=false; syncCtl(); s.remaining=0; }
+  if(!s || (s.remaining<=0 && F.fullBlock)){ const r={status:409, error:{code:'SLOT_TAKEN', message:'此時段剛被預約'}}; log('← 回應（模擬）', r); return r; }
+  if(s.remaining>0) s.remaining--;
+  DB.seq++; window.__created++;
+  const b={bookingId:'DEMO-'+String(DB.seq).padStart(4,'0'), status:'待顧問確認（模擬）', slotId:s.slotId, date:s.date, time:s.time, consultant:s.consultant, topic:body.topic, prepare:PREP[body.topic]};
+  DB.bookings.push(b);
+  const r={status:201, booking:b}; log('← 回應（模擬）', r); return r;
+}
+
+/* ---------- 畫面 ---------- */
+function topicVal(){ const r=document.querySelector('input[name=topic]:checked'); return r?r.value:''; }
+function showErr(id,msg){ const e=$(id); e.textContent=msg||''; e.hidden=!msg; }
+
+async function loadSlots(){
+  const date=$('date').value, topic=topicVal();
+  state.slotId=null; showErr('eSlot','');
+  const area=$('slotArea');
+  if(!date||!topic){ area.innerHTML='<p class="hint" id="slotHint">先選主題與日期，再選時段。</p>'; return; }
+  state.loading=true; updateSubmit();
+  if(F.api) area.innerHTML='<div class="loading" role="status"><span class="spin" aria-hidden="true"></span>正在讀取 '+DATE_LABEL[date]+' 的時段…</div>';
+  let res;
+  try{ res = await apiGetSlots(date, topic); }
+  catch(err){
+    state.loading=false; updateSubmit();
+    if(F.readErrorDistinct){
+      area.innerHTML='<div class="box err" role="alert"><b>時段讀取失敗（不代表額滿）。</b><br>已填資料仍保留，請按「重新讀取時段」。<button type="button" class="btn2" id="retry">重新讀取時段</button></div>';
+      $('retry').addEventListener('click', loadSlots);
+    } else {
+      area.innerHTML='<div class="box info">這一天沒有可預約的時段，請改選其他日期。</div>';
+    }
+    return;
+  }
+  if(date!==$('date').value||topic!==topicVal()) return; // 已換條件，丟棄舊回應
+  state.loading=false; state.slots=res.slots; renderSlots(); updateSubmit();
+}
+function nextDateWithSlots(topic, after){
+  const ds=Object.keys(DATE_LABEL).filter(d=>d>after);
+  return ds.find(d=>DB.slots.some(s=>s.date===d && s.topics.includes(topic) && s.remaining>0));
+}
+function renderSlots(){
+  const area=$('slotArea'); const date=$('date').value; const topic=topicVal();
+  if(state.slots.length===0){
+    let h='<div class="box info" role="status"><b>'+DATE_LABEL[date]+' 沒有「'+TOPIC[topic]+'」可預約時段。</b><br>請改選其他日期。';
+    if(F.nextDate){ const nd=nextDateWithSlots(topic,date); if(nd) h+='<button type="button" class="btn2" id="goNext">改看 '+DATE_LABEL[nd]+'</button>'; }
+    area.innerHTML=h+'</div>';
+    if($('goNext')) $('goNext').addEventListener('click',()=>{ $('date').value=nextDateWithSlots(topic,date); loadSlots(); });
+    return;
+  }
+  const allFull = state.slots.every(s=>s.remaining<=0);
+  let h='<p class="hint">選一個時段（每段 50 分鐘，視訊進行）：</p><div class="slots" role="group" aria-label="可選時段">';
+  for(const s of state.slots){
+    const full=s.remaining<=0;
+    const dis = full && F.fullBlock;
+    h+=`<button type="button" class="slot" data-id="${s.slotId}" aria-pressed="${state.slotId===s.slotId}" ${dis?'disabled':''}>${s.time}<br><span style="font-size:var(--small)">${full?'已額滿':s.consultant}</span></button>`;
+  }
+  h+='</div>';
+  if(allFull && F.fullBlock) h+='<div class="box info" role="status">此日時段皆已額滿，請改選其他日期。</div>';
+  area.innerHTML=h;
+  area.querySelectorAll('.slot').forEach(b=>b.addEventListener('click',()=>{ state.slotId=b.dataset.id; showErr('eSlot',''); renderSlots(); area.querySelector(`[data-id="${state.slotId}"]`).focus(); }));
+}
+function updateSubmit(){
+  const b=$('submit');
+  const lock = state.submitting || (F.cancel && state.booking && !F.multi);
+  b.disabled = !!(state.submitting || state.loading || lock);
+  b.textContent = state.submitting ? '送出中，請稍候…' : (state.loading ? '時段讀取中…' : '建立模擬預約');
+  ['date','industry','emp','nick'].forEach(id=>$(id).disabled = !!(F.cancel && state.booking));
+  document.querySelectorAll('input[name=topic]').forEach(r=>r.disabled=!!(F.cancel && state.booking));
+}
+function validate(){
+  let first=null; const set=(id,msg,focusEl)=>{ showErr(id,msg); if(msg&&!first) first=focusEl; };
+  set('eTopic', topicVal()?'':'請選擇諮詢主題。', document.querySelector('input[name=topic]'));
+  set('eDate', $('date').value?'':'請選擇日期。', $('date'));
+  set('eSlot', ($('date').value && topicVal() && !state.slotId)?'請選擇一個時段。':'', $('slotArea').querySelector('.slot:not([disabled])')||$('date'));
+  set('eIndustry', $('industry').value?'':'請選擇產業別。', $('industry'));
+  const v=$('emp').value.trim(); const n=Number(v);
+  let em=''; if(v==='') em='請填員工人數。'; else if(!Number.isInteger(n)||n<1) em='員工人數請填 1 以上的整數。'; else if(n>30) em='本服務限 30 人以下；'+n+' 人請改洽一般輔導窗口。';
+  set('eEmp', em, $('emp'));
+  const nk=$('nick').value.trim();
+  let nm=''; if(nk==='') nm='請填聯絡稱呼。'; else if(nk.length<2||nk.length>10) nm='聯絡稱呼請填 2～10 字。'; else if(/\d{6,}/.test(nk)) nm='請勿填電話號碼，只填稱呼即可。';
+  set('eNick', nm, $('nick'));
+  return first;
+}
+$('form').addEventListener('submit', async e=>{
+  e.preventDefault();
+  if(state.submitting) return;               // 防連按：處理中直接忽略
+  $('submitArea').innerHTML='';
+  const bad=validate();
+  if(bad){ $('submitArea').innerHTML='<div class="box err" role="alert">有欄位需要修正，請看紅字說明。</div>'; bad.focus(); return; }
+  const body={slotId:state.slotId, topic:topicVal(), industry:$('industry').value, employees:Number($('emp').value), contactName:$('nick').value.trim()};
+  if(F.states){ state.submitting=true; updateSubmit(); }
+  const res = await apiPostBooking(body);
+  state.submitting=false;
+  if(res.status===201){
+    state.booking=res.booking; state.list.push(res.booking);
+    renderSummary(); updateSubmit();
+    $('submitArea').innerHTML='<div class="box ok" role="status">已建立模擬預約 '+res.booking.bookingId+'，請到「我的預約」核對。</div>';
+    if(F.focusSummary){ $('sumH').focus(); $('summary').scrollIntoView({block:'start'}); }
+    return;
+  }
+  updateSubmit();
+  if(res.status===409){
+    if(F.conflictRefresh){
+      $('submitArea').innerHTML='<div class="box err" role="alert"><b>此時段剛被其他人預約，本次未建立。</b><br>你填的主題、日期與企業資料都已保留，已重新讀取時段，請改選其他時段後再送出。</div>';
+      await loadSlots();
+    } else {
+      $('submitArea').innerHTML='<div class="box err" role="alert">此時段已被預約，未建立預約，請改選時段。</div>';
+    }
+  } else {
+    $('submitArea').innerHTML='<div class="box err" role="alert"><b>送出失敗：服務暫時無法處理，本次未建立預約。</b><br>你填的資料都還在，可直接再按一次「建立模擬預約」。</div>';
+  }
+});
+function renderSummary(){
+  const sb=$('sumBody');
+  if(!F.cancel){
+    if(state.list.length===0){ sb.innerHTML='<p>尚未建立預約。</p>'; return; }
+    sb.innerHTML='<ol class="list-old">'+state.list.map(b=>`<li>${b.bookingId}｜${TOPIC[b.topic]}｜${DATE_LABEL[b.date]} ${b.time}</li>`).join('')+'</ol>';
+    return;
+  }
+  const b=state.booking;
+  if(!b){
+    const back = F.backFix ? '回到填寫預約' : '返回';
+    sb.innerHTML='<p>目前沒有預約。'+(F.states?'請先在「預約諮詢」選主題與時段。':'')+'</p>'+(F.regions?`<button type="button" class="btn2" id="back">${back}</button>`:'');
+    if($('back')) $('back').addEventListener('click',()=>{ if(F.backFix){ $('book').scrollIntoView(); (topicVal()?$('date'):document.querySelector('input[name=topic]')).focus(); } else { window.scrollTo(0,0); } });
+    return;
+  }
+  sb.innerHTML=`<div class="box ok"><b>預約已建立（模擬，未真正送出）</b></div>
+  <dl><dt>預約編號</dt><dd>${b.bookingId}</dd><dt>狀態</dt><dd>${b.status}</dd><dt>主題</dt><dd>${TOPIC[b.topic]}</dd><dt>日期時段</dt><dd>${DATE_LABEL[b.date]} ${b.time}</dd><dt>顧問</dt><dd>${b.consultant}</dd></dl>
+  <h3>諮詢前請準備</h3><ul>${b.prepare.map(p=>'<li>'+p+'</li>').join('')}</ul>
+  <button type="button" class="btn2" id="cancel">取消這筆預約</button>`;
+  $('cancel').addEventListener('click',()=>{
+    const s=DB.slots.find(x=>x.slotId===b.slotId); if(s) s.remaining++;
+    state.booking=null; state.slotId=null; updateSubmit(); renderSummary();
+    $('submitArea').innerHTML='<div class="box info" role="status">已取消 '+b.bookingId+'。企業資料已保留，可重新選時段預約。</div>';
+    loadSlots();
+    $('book').scrollIntoView(); $('date').focus();
+  });
+}
+/* 教學控制 */
+function syncCtl(){ ['readFail','submitFail','conflict'].forEach(k=>{ const c=$('c_'+k); if(c) c.checked=state.ctl[k]; }); }
+(function initCtl(){
+  const items=[];
+  if(F.states) items.push(['submitFail','下一次送出：模擬服務失敗（未建立）']);
+  if(F.api) items.push(['readFail','下一次讀取時段：模擬讀取失敗']);
+  if(F.conflict) items.push(['conflict','下一次送出：模擬時段剛被他人預約']);
+  if(!items.length){ $('ctlBox').hidden=true; return; }
+  $('ctls').innerHTML=items.map(([k,t])=>`<label class="ctl"><input type="checkbox" id="c_${k}">${t}</label>`).join('');
+  items.forEach(([k])=>$('c_'+k).addEventListener('change',e=>state.ctl[k]=e.target.checked));
+  if(F.api) $('logWrap').hidden=false;
+})();
+if(F.regions) $('nav').hidden=false;
+if(F.api) $('aboutApi').innerHTML='讀取時段（GET）與建立預約（POST）都是<b>頁面內模擬</b>，沒有發出 HTTP 請求；資料只存在本分頁記憶體，重新整理會清空，另一分頁或裝置看不到。';
+document.querySelectorAll('input[name=topic]').forEach(r=>r.addEventListener('change',()=>{showErr('eTopic','');loadSlots();}));
+$('date').addEventListener('change',()=>{showErr('eDate','');loadSlots();});
+renderSummary(); updateSubmit();
+</script>
+</body>
+</html>
